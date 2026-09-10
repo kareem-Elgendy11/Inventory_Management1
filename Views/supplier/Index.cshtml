@@ -1,0 +1,64 @@
+﻿@model IndexSuviewmpdel
+<div class="container mt-4">
+    <h2>إدارة الموردين (Supplier Management)</h2>
+
+    <div class="mb-3 text-end">
+        <a asp-action="add" asp-controller="supplier" class="btn btn-primary">add supplier</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <!-- ده اللي هيخليه يعمل scroll في الموبايل -->
+                <table class="table table-bordered table-striped mb-0 align-middle text-center">
+
+                    <thead class="table-dark">
+                        <tr>
+                            <th>id</th>
+                            <th>SupplierNameS</th> <!-- صلحتها من td ل th -->
+                            <th>contact Name</th>
+                            <th>phone</th>
+                            <th>emails</th>
+                            <th>address</th>
+                            <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.suppliers == null || !Model.suppliers.Any())
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center py-3">Not exist suppliers now.</td> <!-- صلحت colspan -->
+                            </tr>
+
+                        }
+                        else
+                        {
+                            @foreach (var supplier in Model.suppliers)
+                            {
+                                <tr>
+                                    <td>@supplier.IdS</td>
+                                    <td>@supplier.SupplierNameS</td>
+                                    <td>@supplier.ContactNameS</td>
+                                    <td>@supplier.PhoneS</td>
+                                    <td>@supplier.EmailS</td>
+                                    <td>@supplier.AddressS</td>
+                                    <td>
+                                        <div class="d-flex gap-1 justify-content-center flex-wrap">
+                                            <!--
+
+                                            الازرار هتلف تحت بعض في الموبايل -->
+                                            <a asp-action="details" asp-controller="supplier" asp-route-id="@supplier.IdS" class="btn btn-sm btn-info text-white">View</a>
+                                            <a asp-action="edit" asp-controller="supplier" asp-route-id="@supplier.IdS" class="btn btn-sm btn-warning">Edit</a>
+                                            <a asp-action="Delete" asp-controller="supplier" asp-route-id="@supplier.IdS" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure from Delete supplier?')">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

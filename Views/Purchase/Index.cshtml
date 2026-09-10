@@ -1,0 +1,57 @@
+﻿@model List<InventoryApp_v2.Models.Purchase>
+
+<h2>Purchase History</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">
+    Create Purchase
+</a>
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Supplier</th>
+            <th>Items</th>
+            <th>Total Amount</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var purchase in Model)
+        {
+            <tr>
+                <td>@purchase.Id</td>
+
+                <td>
+                    @purchase.PurchaseDate.ToString("dd/MM/yyyy")
+                </td>
+
+                <td>
+                    @purchase.Supplier?.SupplierName
+                </td>
+
+                <td>
+                    @string.Join(", ", purchase.PurchaseItems.Select(pi => $"{pi.Product?.Name} (x{pi.Quantity})"))
+                </td>
+
+                <td>
+                    @purchase.TotalAmount
+                </td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@purchase.Id"
+                       class="btn btn-sm btn-info">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

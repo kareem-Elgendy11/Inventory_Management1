@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "المساعد الذكي";
+}
+
+<h2 class="mb-4">اسأل المساعد الذكي عن المخزون</h2>
+
+<div class="card">
+    <div class="card-body">
+        <div id="chatBox" style="height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;"></div>
+
+        <div class="input-group">
+            <input type="text" id="messageInput" class="form-control" placeholder="اكتب سؤالك هنا... مثلاً: عندي كام منتج ناقص؟" />
+            <button class="btn btn-primary" onclick="sendMessage()">إرسال</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const message = input.value.trim();
+        if (!message) return;
+
+        const chatBox = document.getElementById('chatBox');
+        chatBox.innerHTML += `<div class="mb-2"><strong>أنت:</strong> ${message}</div>`;
+        input.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        chatBox.innerHTML += `<div class="mb-2" id="loading"><em>جاري الرد...</em></div>`;
+
+        const response = await fetch('/Chat/Ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: message })
+        });
+
+        const data = await response.json();
+        document.getElementById('loading').remove();
+        chatBox.innerHTML += `<div class="mb-2"><strong>المساعد:</strong> ${data.reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById('messageInput')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+</script>

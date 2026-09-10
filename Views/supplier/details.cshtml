@@ -1,0 +1,66 @@
+﻿@model supplierviewmodel
+@{
+    ViewData["title"] = "details";
+}
+
+<div class="container mt-4">
+    <h2>تفاصيل المورد: @Model.SupplierNameS</h2>
+
+    <div class="card my-3">
+        <div class="card-header bg-secondary text-white">
+            معلومات الاتصال (Contact Information)
+        </div>
+        <div class="card-body">
+            <p><strong>Phone:</strong>@Model.PhoneS </p>
+            <p><strong>Email:</strong>@Model.EmailS </p>
+            <p><strong>Address:</strong>@Model.AddressS </p>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header bg-success text-white">
+            منتجات المورد (Supplier Products)
+        </div>
+        <div class="card-body">
+            @if (Model.purchases == null || !Model.purchases.Any())
+            {
+                <p class="text-muted">list Don’t include any purchase</p>
+            }
+            else
+            {
+
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>category Name</th>
+                            <th>price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var purchase in Model.purchases)
+                        {
+                            @foreach (var item in purchase.PurchaseItems)
+                            {
+                                <tr>
+                                    <th>@item.Product?.Name</th>
+                                    <th>@item.Quantity</th>
+                                    <th>@item.Product?.Category?.Name</th>
+                                    <th>@item.Product?.Price</th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+            }
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" asp-controller="supplier" class="btn btn-outline-secondary">go back</a>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Create Purchase";
+}
+
+<h2>Create Purchase</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Supplier</label>
+
+        <select name="SupplierId" class="form-control">
+            <option value="">-- Select Supplier --</option>
+
+            @foreach (var supplier in ViewBag.Suppliers)
+            {
+                <option value="@supplier.Id">
+                    @supplier.SupplierName
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Product</label>
+
+        <select name="ProductId" class="form-control">
+            <option value="">-- Select Product --</option>
+
+            @foreach (var product in ViewBag.Products)
+            {
+                <option value="@product.Id">
+                    @product.Name - @product.Price
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Quantity</label>
+
+        <input name="Quantity"
+               type="number"
+               min="1"
+               class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Create Purchase
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Back
+    </a>
+
+</form>

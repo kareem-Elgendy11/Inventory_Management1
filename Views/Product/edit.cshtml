@@ -1,0 +1,65 @@
+﻿@model productviewmodel
+@{
+    ViewData["title"] = "edit";
+}
+<h1>edit product</h1>
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">Edit Product Information</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit"asp-controller="product" method="post">
+                <input hidden value="@Model.Id" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Name"></label>
+                    <input type="text" class="form-control" value="@Model.Name"asp-for="Name" required />
+                    <span class="text-danger"asp-validation-for="Name"></span>
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" asp-for="@Model.CategoryId">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+
+                    }
+                        <option ></option>
+                       
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"asp-for="Price"></label>
+                    <input  class="form-control" value="@Model.Price"asp-for="Price" required />
+                    <span class="text-danger" asp-validation-for="Price"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="sku"></label>
+                    <input  class="form-control" value="@Model.sku" asp-for="sku" required />
+                    <span class="text-danger" asp-validation-for="sku"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="LowStokThreshold"></label>
+                    <input class="form-control" value="@Model.LowStokThreshold" asp-for="LowStokThreshold" required />
+                    <span class="text-danger" asp-validation-for="LowStokThreshold"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Quantity"></label>
+                    <input class="form-control" value="@Model.Quantity" asp-for="Quantity" required />
+                    <span class="text-danger" asp-validation-for="Quantity"></span>
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Browse"asp-controller="product" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-warning">Update Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

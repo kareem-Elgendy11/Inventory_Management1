@@ -1,0 +1,52 @@
+﻿@model supplierviewmodel
+@{
+    ViewData["title"] = "edit supplier";
+}
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">Edit supplier Information</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="edit" asp-controller="Supplier" method="post">
+                <input hidden value="@Model.IdS"asp-for="IdS"/>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="ContactNameS"></label>
+                    <input type="text" class="form-control" value="@Model.ContactNameS" asp-for="ContactNameS" required />
+                    <span class="text-danger" asp-validation-for="ContactNameS"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="SupplierNameS"></label>
+                    <input class="form-control" value="@Model.SupplierNameS" asp-for="SupplierNameS" required />
+                    <span class="text-danger" asp-validation-for="SupplierNameS"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="PhoneS"></label>
+                    <input class="form-control" value="@Model.PhoneS" asp-for="PhoneS" required />
+                    <span class="text-danger" asp-validation-for="PhoneS"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="EmailS"></label>
+                    <input class="form-control" value="@Model.EmailS" asp-for="EmailS" required />
+                    <span class="text-danger" asp-validation-for="EmailS"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="AddressS"></label>
+                    <input class="form-control" value="@Model.AddressS" asp-for="AddressS" required />
+                    <span class="text-danger" asp-validation-for="AddressS"></span>
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" asp-controller="supplier" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-warning">Update Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,57 @@
+﻿@model InventoryApp_v2.Models.Purchase
+
+<h2>Purchase Details</h2>
+
+<div class="card p-4">
+
+    <p>
+        <strong>Purchase ID:</strong>
+        @Model.Id
+    </p>
+
+    <p>
+        <strong>Date:</strong>
+        @Model.PurchaseDate.ToString("dd/MM/yyyy")
+    </p>
+
+    <p>
+        <strong>Supplier:</strong>
+        @Model.Supplier?.SupplierName
+    </p>
+
+    <p>
+        <strong>Total Amount:</strong>
+        @Model.TotalAmount
+    </p>
+
+    <hr />
+
+    <h5>Purchased Items</h5>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PurchaseItems)
+            {
+                <tr>
+                    <td>@item.Product?.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitPrice</td>
+                    <td>@(item.Quantity * item.UnitPrice)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">
+    Back
+</a>

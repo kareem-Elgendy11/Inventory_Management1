@@ -1,0 +1,62 @@
+﻿@model supplierviewmodel
+@{
+    ViewData["title"] = "Add Supplier";
+}
+<h1>Add Supplier</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Supplier</title>
+</head>
+<body class="bg-light">
+    <div class="container mt-5" style="max-width: 600px;">
+        <div class="card shadow">
+            <div class="card-header bg-success
+
+text-white">
+                <h5>Add New supplier</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="add" asp-controller="supplier">
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ContactNameS"></label>
+                        <input asp-for="ContactNameS" class="form-control" required>
+                        <span asp-validation-for="ContactNameS" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="SupplierNameS"></label>
+                        <input  class="form-control" asp-for="SupplierNameS" required>
+                        <span asp-validation-for="SupplierNameS" class="text-danger"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="EmailS"></label>
+                        <input class="form-control" asp-for="EmailS" required>
+                        <span asp-validation-for="EmailS" class="text-danger"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="AddressS"></label>
+                        <input  class="form-control" asp-for="AddressS" >
+                        <span asp-validation-for="AddressS" class="text-danger"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="PhoneS"> </label>
+                        <input class="form-control" asp-for="PhoneS">
+                        <span asp-validation-for="PhoneS" class="text-danger"></span>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" asp-controller="supplier" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn bg-success text-white">Add supplier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

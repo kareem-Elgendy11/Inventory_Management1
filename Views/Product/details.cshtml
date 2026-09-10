@@ -1,0 +1,42 @@
+﻿@model productviewmodel
+@{
+    ViewData["title"] = "Details";
+}
+<h1>Details</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Product Details</title>
+</head>
+<body class="bg-light">
+    <div class="container mt-5" style="max-width: 600px;">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white"><h5>Complete Product Details</h5></div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item"><strong>Product ID:</strong> @Model.Id</li>
+                    <li class="list-group-item"><strong>Name:</strong> @Model.Name</li>
+
+                    <li class="list-group-item"><strong>Category:</strong> @Model.categoryname</li>
+                    <li class="list-group-item"><strong>Pricing:</strong> @Model.Price</li>
+                    <li class="list-group-item"><strong>Quantity:</strong> @Model.Quantity</li>
+                    <li class="list-group-item"><strong>Sku:</strong>@Model.sku</li>
+                    <li class="list-group-item"><strong>lowstokthreshold:</strong>@Model.LowStokThreshold</li>
+
+
+
+
+                </ul>
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="product" asp-action="Browse" class="btn btn-secondary">Back to Stock</a>
+                    <a asp-controller="product"asp-action="edit"asp-route-id="@Model.Id" class="btn btn-warning">Go to Edit</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+

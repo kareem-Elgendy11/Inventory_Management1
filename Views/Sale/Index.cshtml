@@ -1,0 +1,43 @@
+﻿@model List<InventoryApp_v2.Models.Sale>
+
+<h2>Sales History</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">
+    Create Sale
+</a>
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var sale in Model)
+        {
+            <tr>
+                <td>@sale.Id</td>
+                <td>@sale.SaleDate</td>
+                <td>@sale.CustomerInfo</td>
+                <td>@sale.Totalamount</td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@sale.Id"
+                       class="btn btn-info">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

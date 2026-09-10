@@ -1,0 +1,115 @@
+﻿@model Indexviewmodel
+@{
+    ViewData["title"] = "Browse";
+}
+<h1>Products</h1>
+<div class="container mt-4">
+    <!-- Header with Add Button -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
+        <h2 class="text-primary">Browse Stock</h2>
+        <a asp-action="add" asp-controller="product" class="btn btn-success">+ Add New Product</a>
+    </div>
+
+    <!-- Search & Filter Area -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form asp-action="Browse" asp-
+                controller="product" method="post" class="row g-3">
+                <div class="col-12 col-md-10">
+                    <input type="text" name="word" class="form-control" placeholder="Search products by name...">
+                </div>
+                <div class="col-12 col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Table -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <!-- ده بس اللي هيخليه يعمل scroll في الموبايل -->
+
+                <table class="table table-hover mb-0 align-middle text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>lowStokshold</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    @if (Model.products.Count == 0)
+                    {
+                        <tbody>
+                            <tr>
+                                <td colspan="7">
+                                    <!-- صلحت دي عشان تاخد كل الاعمدة -->
+                                    <h2 class="form-text text-center py-3">Not exist Product</h2>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody>
+                            @foreach (var product in Model.products)
+                            {
+                                <tr>
+                                    <td>@product.Id</td>
+                                    <td>@product.Name</td>
+                                    <td>@product.Category.Name</td>
+                                    <td>@product.Price</td>
+                                    <td>
+                                        @product.Quantity
+                                        @if
+
+                                                                        (product.Quantity <= product.LowStokThreshold)
+                                        {
+                                            <span class="text-danger fw-bold">
+                                                ⚠ Low Stock
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>@product.LowStokThreshold</td>
+                                    <td>
+                                        <div class="d-flex gap-1 justify-content-center flex-wrap">
+                                            <!-- الازرار هتلف تحت بعض في الموبايل -->
+                                            <a asp-action="details" asp-controller="product" asp-route-id="@product.Id" class="btn btn-sm btn-info text-white">View</a>
+                                         
+
+                                                <a asp-action="edit" asp-controller="product" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
+                                            <a asp-action="Delete" asp-controller="product" asp-route-id="@product.Id" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure from Delete Product?')">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.countpage != 0)
+{
+
+    <div class="d-flex justify-content-center align-items-center my-2">
+        @if (Model.currentpage > 1)
+        {
+            <a asp-action="Browse" asp-controller="product" asp-route-page="@(Model.currentpage - 1)" class="btn btn-outline-primary">&lt;</a>
+        }
+        <p class="mx-2 pt-2 text-center"> Page @Model.currentpage of @Model.countpage</p>
+        @if (Model.currentpage < Model.countpage)
+        {
+            <a asp-action="Browse" asp-controller="product" asp-route-page="@(Model.currentpage + 1)" class="btn btn-outline-info">&gt;</a>
+        }
+    </div>
+
+}
+
